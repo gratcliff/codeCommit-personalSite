@@ -9,22 +9,21 @@ phases:
     install:
         commands:
         - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-        - sudo apt-get install -y nodejs
         - echo Installing nodeJs
         - sudo apt-get update -y
+        - sudo apt-get install -y nodejs
         - sudo apt-get install -y apt-transport-https
-        - npm add @angular/cli@6.0.8
         - npm install
 
     build:
         commands:
         - echo Build started
-        - ng build --${BUILD_ENV}
+        - npm run build
 
     post_build:
         commands:
         - aws s3 rm s3://${S3_BUCKET} --recursive
-        - echo S3 bucket is cleared.
+        - echo S3 bucket is cleared
         - aws s3 cp dist s3://${S3_BUCKET} --recursive
         - echo Build completed on `date`
 
