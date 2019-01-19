@@ -26,7 +26,6 @@ phases:
         - aws s3 rm s3://${S3_BUCKET} --recursive
         - echo S3 bucket is cleared
         - aws s3 cp ${BUILD_DIR}/* s3://${S3_BUCKET} --acl public-read --recursive
-        - aws s3 rm s3://${S3_BUCKET}/${BUILD_DIR} --recursive
         - echo Build completed on `date`
 
 artifacts:
