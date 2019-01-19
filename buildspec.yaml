@@ -4,6 +4,7 @@ env:
     variables:
         S3_BUCKET: "gaberatcliff.com"
         BUILD_ENV : "prod"
+        BUILD_DIR : "dist"
 
 phases:
     install:
@@ -24,7 +25,8 @@ phases:
         commands:
         - aws s3 rm s3://${S3_BUCKET} --recursive
         - echo S3 bucket is cleared
-        - aws s3 cp dist/* s3://${S3_BUCKET} --recursive
+        - aws s3 cp ${BUILD_DIR}/* s3://${S3_BUCKET} --acl public-read --recursive
+        - aws s3 rm s3://${S3_BUCKET}/${BUILD_DIR} --recursive
         - echo Build completed on `date`
 
 artifacts:
